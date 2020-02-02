@@ -2,8 +2,6 @@ package main
 
 import "fmt"
 
-var sli = []int{1, 43, 54, 62, 21, 66, 32, 78, 36, 76, 39}
-
 // 稳定 O(n2)
 func bubbleSort(sli []int) []int {
 	len := len(sli)
@@ -24,7 +22,25 @@ func bubbleSort(sli []int) []int {
 	return sli
 }
 
+func bubbleSort2(sli []int) []int {
+	len := len(sli)
+
+	if len <= 1 {
+		return sli
+	}
+
+	for i := 0; i < len-1; i++ {
+		for j := len - 1; j > i; j-- {
+			if sli[j] < sli[j-1] {
+				sli[j], sli[j-1] = sli[j-1], sli[j]
+			}
+		}
+	}
+	return sli
+}
+
 func main() {
-	res := bubbleSort(sli)
+	var sli = []int{1, 43, 54, 62, 21, 66, 32, 78, 36, 76, 39}
+	res := bubbleSort2(sli)
 	fmt.Println(res)
 }

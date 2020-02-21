@@ -3,11 +3,12 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 )
 
 var wg sync.WaitGroup
 
-func main(){
+func main() {
 	ch := make(chan int)
 	//num := make([]int, 100)
 	countCh := make(chan int, 100)
@@ -18,13 +19,14 @@ func main(){
 
 	ch <- 1
 	wg.Wait()
+	go func() {
+		time.Sleep(3 * time.Second)
+		close(countCh)
+	}()
 	for value := range countCh {
 		fmt.Println("STDOUT:", value)
 	}
-
-	close(countCh)
 }
-
 
 func Counter(ch chan int, count chan int) {
 	defer wg.Done()

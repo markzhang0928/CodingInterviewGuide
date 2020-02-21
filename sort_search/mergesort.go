@@ -37,6 +37,7 @@ func merge(sli []int, low, mid, high int) {
 	}
 }
 
+// 稳定 O(nlgN)
 func mergeSort(sli []int, low, high int) {
 
 	if low < high {

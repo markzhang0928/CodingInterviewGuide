@@ -8,29 +8,23 @@ import (
 
 var wg sync.WaitGroup
 
-func main(){
+func main() {
 	chEven := make(chan int, 50)
 	chOdd := make(chan int, 50)
-	wg.Add(2)
+	wg.Add(1)
 
 	go func() {
 		defer wg.Done()
-		for i := 1; i <= 99; i+=2 {
-			fmt.Println(i)
+		for i := 1; i <= 99; i += 2 {
+			// fmt.Println(i)
 			chOdd <- i
-			}
-		}()
-
-	go func(){
-		defer wg.Done()
-		for i := 2; i <= 100; i+=2 {
-			fmt.Println(i)
+		}
+		for i := 2; i <= 100; i += 2 {
+			// fmt.Println(i)
 			chEven <- i
 		}
 	}()
-
 	wg.Wait()
-
 
 	wg.Add(1)
 	ch1 := make(chan int)
@@ -38,16 +32,16 @@ func main(){
 	go func() {
 		defer wg.Done()
 		for value := range chOdd {
-			ch1 <-value
-			fmt.Println("STDOUT", value)
+			ch1 <- value
+			fmt.Println("Printer1", value)
 			<-ch2
 		}
 	}()
 
-	for value := range chEven{
+	for value := range chEven {
 		<-ch1
-		fmt.Println("STDOUT",value)
-		ch2<-value
+		fmt.Println("Printer2", value)
+		ch2 <- value
 	}
 
 	wg.Wait()

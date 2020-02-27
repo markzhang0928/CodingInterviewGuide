@@ -1,17 +1,46 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
-func reverseString(s []byte) {
-	//left := 0
-	max := len(s) - 1
-	for left, right := 0, max; left < right; left, right = left+1, right-1 {
-		s[left], s[right] = s[right], s[left]
+func reverse(str string) string {
+
+	if len(str) == 0 {
+		return ""
 	}
+	ch := []rune(str)
+	for i, j := 0, len(str)-1; i < j; i, j = i+1, j-1 {
+		ch[i], ch[j] = ch[j], ch[i]
+	}
+	return string(ch)
+}
+
+func reverseSentences(str string) string {
+
+	if len(str) == 0 {
+		return ""
+	} else if len(str) == 1 {
+		return str
+	}
+	var reverseStr, reversedStr string
+	reverseStr = reverse(str)
+	subStrSlice := strings.Split(reverseStr, " ")
+	for i, _ := range subStrSlice {
+		reversedStr += reverse(subStrSlice[i]) + " "
+	}
+	return reversedStr
 }
 
 func main() {
-	sli := []byte{'g', 'o', 'l', 'a', 'n', 'g'}
-	reverseString(sli)
-	fmt.Println(sli)
+
+	inputReader := bufio.NewReader(os.Stdin)
+	input, _, err := inputReader.ReadLine()
+	if err != nil {
+		fmt.Errorf("read line error")
+	}
+	fmt.Printf(reverseSentences(string(input)))
 }

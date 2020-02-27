@@ -36,3 +36,14 @@ func (p *SliceQueue) GetBack() interface{} {
 	}
 	return p.arr[p.Size()-1]
 }
+
+// 返回并移除队尾元素
+func (p *SliceQueue) PopBack() interface{} {
+	p.Lock()
+	defer p.Unlock()
+	if p.IsEmpty() {
+		return nil
+	}
+	ret := p.arr[p.Size()-1]
+	p.arr = p.arr[]
+}

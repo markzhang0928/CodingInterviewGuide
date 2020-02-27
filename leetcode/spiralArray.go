@@ -1,56 +1,80 @@
 package main
 
-// pdd third
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+const N = 5
 
 func main() {
-	//s := [][]int{{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}}
-	//s := [][]int{{1}, {2}, {3}, {4}}
-	//s := [][]int{{1, 2, 3, 4}, {5, 6, 7, 8}}
-	s := [][]int{{1, 2}, {5, 6}, {9, 10}, {13, 14}}
 
-	printMatrix(s)
+	matrix := make([][]int, N)
+	for i := 0; i < N; i++ {
+		matrix[i] = make([]int, N)
+	}
+	matrix, err := generateMatrix(matrix, 0, 0, N)
+	if err != nil {
+		fmt.Println(err)
+	}
+	//squiralMatrix := [][]int{}
+	for i := 0; i < N; i++ {
+		subLine := make([]int, 0, N)
+		for j := 0; j < N; j++ {
+			subLine = append(subLine, matrix[i][j])
+		}
+		fmt.Printf("%v\n", subLine)
+	}
 }
-func printMatrix(s [][]int) {
-	if s == nil {
-		fmt.Println("切片为空，无法打印")
+func generateMatrix(matrix [][]int, x, y, N int) ([][]int, error) {
+
+	if matrix == nil || x < 0 || y < 0 {
+		return nil, errors.New("input error")
 	}
-	bex, bey := 0, 0
-	hang := len(s) - 1
-	lie := len(s[0]) - 1
-	if hang == 0 {
-		for _, v := range s[0] {
-			fmt.Println(v)
+
+	val := 1
+	direction := 1
+	for {
+		if val > N*N-1 {
+			matrix[x][y] = val
+			break
 		}
-		return
+
+		switch direction {
+		case 1: // ->
+			if y+1 < N && matrix[x][y+1] == 0 {
+				matrix[x][y] = val
+				val++
+				y++
+			} else {
+				direction = 2
+			}
+		case 2: // |
+			if x+1 < N && matrix[x+1][y] == 0 {
+				matrix[x][y] = val
+				val++
+				x++
+			} else {
+				direction = 3
+			}
+		case 3: // <-
+			if y-1 >= 0 && matrix[x][y-1] == 0 {
+				matrix[x][y] = val
+				val++
+				y--
+			} else {
+				direction = 4
+			}
+		case 4: // ^
+			if x-1 >= 0 && matrix[x-1][y] == 0 {
+				matrix[x][y] = val
+				val++
+				x--
+			} else {
+				direction = 1
+			}
+		default:
+		}
 	}
-	if lie == 0 {
-		for _, v := range s {
-			fmt.Println(v[0])
-		}
-		return
-	}
-	for bex <= hang && bey <= lie {
-		ax, ay := bex, bey
-		for ay < lie {
-			fmt.Println(s[ax][ay])
-			ay++
-		}
-		for ax < hang {
-			fmt.Println(s[ax][ay])
-			ax++
-		}
-		for ay > bey {
-			fmt.Println(s[ax][ay])
-			ay--
-		}
-		for ax > bex {
-			fmt.Println(s[ax][ay])
-			ax--
-		}
-		bex++
-		bey++
-		hang--
-		lie--
-	}
+	return matrix, nil
 }

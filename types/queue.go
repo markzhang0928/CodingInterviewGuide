@@ -45,5 +45,49 @@ func (p *SliceQueue) PopBack() interface{} {
 		return nil
 	}
 	ret := p.arr[p.Size()-1]
-	p.arr = p.arr[]
+	p.arr = p.arr[:p.Size()-1]
+	return ret
+}
+
+// 删除队列头元素
+func (p *SliceQueue) DeQueue() interface{} {
+	p.Lock()
+	defer p.Unlock()
+	if len(p.arr) != 0 {
+		first := p.arr[0]
+		p.arr = p.arr[1:]
+		return first
+	} else {
+		return nil
+	}
+}
+
+//把新元素加入队列尾
+func (p *SliceQueue) EnQueue(item interface{}) {
+	p.Lock()
+	defer p.Unlock()
+	p.arr = append(p.arr, item)
+}
+
+// 把新元素加入队列首
+func (p *SliceQueue) EnQueueFirst(item interface{}) {
+	p.Lock()
+	defer p.Unlock()
+	newQueue := []interface{}{item}
+	p.arr = append(newQueue, p.arr[:]...)
+}
+
+// 简单实现一个remove
+func (p *SliceQueue) Remove(item interface{}) {
+	p.Lock()
+	defer p.Unlock()
+	for k, v := range p.arr {
+		if v == item {
+			p.arr = append(p.arr[:k], p.arr[k+1:]...)
+		}
+	}
+}
+
+func (p *SliceQueue) List() []interface{} {
+	return p.arr
 }

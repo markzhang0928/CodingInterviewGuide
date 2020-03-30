@@ -16,7 +16,7 @@ func main() {
 		if input == nil {
 			break
 		}
-		fmt.Println(hexToDecimal(string(input)))
+		fmt.Println(xxx(string(input)))
 
 	}
 }

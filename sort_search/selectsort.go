@@ -20,7 +20,6 @@ func selectSort(sli []int) []int {
 		if flag != i {
 			sli[i], sli[flag] = sli[flag], sli[i]
 		}
-		fmt.Println(sli)
 	}
 	return sli
 }

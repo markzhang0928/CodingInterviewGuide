@@ -11,20 +11,15 @@ var wg sync.WaitGroup
 func main() {
 	chEven := make(chan int, 50)
 	chOdd := make(chan int, 50)
-	wg.Add(1)
 
-	go func() {
-		defer wg.Done()
-		for i := 1; i <= 99; i += 2 {
-			// fmt.Println(i)
-			chOdd <- i
-		}
-		for i := 2; i <= 100; i += 2 {
-			// fmt.Println(i)
-			chEven <- i
-		}
-	}()
-	wg.Wait()
+	for i := 1; i <= 99; i += 2 {
+		// fmt.Println(i)
+		chOdd <- i
+	}
+	for i := 2; i <= 100; i += 2 {
+		// fmt.Println(i)
+		chEven <- i
+	}
 
 	wg.Add(1)
 	ch1 := make(chan int)

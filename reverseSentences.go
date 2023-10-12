@@ -7,12 +7,12 @@ import (
 )
 
 func stripSentences(str string) (stripedStr string) {
-	len := len(str)
-	if len <= 0 {
+	lengt := len(str)
+	if lengt <= 0 {
 		return " "
 	}
-	for i := 0; i < len; i++ {
-		if i+1 < len {
+	for i := 0; i < lengt; i++ {
+		if i+1 < lengt {
 			if str[i] >= 48 && str[i] <= 57 {
 				stripedStr += string(str[i])
 			} else if str[i] >= 97 && str[i] <= 122 {

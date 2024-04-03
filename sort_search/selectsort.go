@@ -4,15 +4,15 @@ import "fmt"
 
 func selectSort(sli []int) []int {
 
-	len := len(sli)
+	length := len(sli)
 
-	if len <= 1 {
+	if length <= 1 {
 		return sli
 	}
 
-	for i := 0; i < len-1; i++ {
+	for i := 0; i < length-1; i++ {
 		flag := i
-		for j := i + 1; j < len; j++ {
+		for j := i + 1; j < length; j++ {
 			if sli[j] < sli[flag] {
 				flag = j
 			}

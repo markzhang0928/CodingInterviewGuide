@@ -31,13 +31,12 @@ func stripSentences(str string) (stripedStr string) {
 
 func reverseSentences(str string) string {
 
-	len := len(str)
-	if len <= 0 {
+	lenStr := len(str)
+	if lenStr <= 0 {
 		return " "
 	}
 	stripedStr := stripSentences(str)
-
-	return
+	return stripedStr
 }
 
 func main() {

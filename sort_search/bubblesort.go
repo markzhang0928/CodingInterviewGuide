@@ -4,16 +4,16 @@ import "fmt"
 
 // 稳定 O(n2)
 func bubbleSort(sli []int) []int {
-	len := len(sli)
+	sliLen := len(sli)
 
-	if len <= 1 {
+	if sliLen <= 1 {
 		return sli
 	}
 
 	//该层循环控制 需要冒泡的轮数
-	for i := 1; i < len; i++ {
+	for i := 1; i < sliLen; i++ {
 		//该层循环用来控制每轮 冒出一个数 需要比较的次数
-		for j := 0; j < len-1; j++ {
+		for j := 0; j < sliLen-1; j++ {
 			if sli[i] < sli[j] {
 				sli[i], sli[j] = sli[j], sli[i]
 			}
@@ -22,15 +22,14 @@ func bubbleSort(sli []int) []int {
 	return sli
 }
 
-func bubbleSort2(sli []int) []int {
-	len := len(sli)
-
-	if len <= 1 {
+func bubbleSort2(s []int) []int {
+	slen := len(s)
+	if slen <= 1 {
 		return sli
 	}
 
-	for i := 0; i < len-1; i++ {
-		for j := len - 1; j > i; j-- {
+	for i := 0; i < slen-1; i++ {
+		for j := slen - 1; j > i; j-- {
 			if sli[j] < sli[j-1] {
 				sli[j], sli[j-1] = sli[j-1], sli[j]
 			}

@@ -11,8 +11,8 @@ var sli = []int{1, 43, 54, 62, 21, 66, 32, 78, 36, 76, 39}
 // 不稳定 O(nlgN)
 func quickSort(sli []int) []int {
 
-	len := len(sli)
-	if len <= 1 {
+	sliLen := len(sli)
+	if sliLen <= 1 {
 		return sli
 	}
 
@@ -23,7 +23,7 @@ func quickSort(sli []int) []int {
 	leftSli := []int{}  //小于基准的
 	rightSli := []int{} //大于基准的
 
-	for i := 1; i < len; i++ {
+	for i := 1; i < sliLen; i++ {
 		if baseNum > sli[i] {
 			leftSli = append(leftSli, sli[i])
 		} else {

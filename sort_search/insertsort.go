@@ -3,13 +3,13 @@ package main
 import "fmt"
 
 func insertSort(sli []int) []int {
-	len := len(sli)
+	length := len(sli)
 
-	if len <= 1 {
+	if length <= 1 {
 		return sli
 	}
 
-	for i := 0; i < len; i++ {
+	for i := 0; i < length; i++ {
 		tmp := sli[i]
 		// 内层循环控制,比较并插入
 		for j := i - 1; j >= 0; j-- {

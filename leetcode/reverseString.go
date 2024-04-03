@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
+	"regexp"
 )
 
 func reverse(str string) string {
@@ -28,7 +28,9 @@ func reverseSentences(str string) string {
 	}
 	var reverseStr, reversedStr string
 	reverseStr = reverse(str)
-	subStrSlice := strings.Split(reverseStr, " ")
+	reg := regexp.MustCompile(`\s+`)
+	subStrSlice := reg.Split(reverseStr, -1)
+	// subStrSlice := strings.Split(reverseStr, " ")
 	for i, _ := range subStrSlice {
 		reversedStr += reverse(subStrSlice[i]) + " "
 	}
